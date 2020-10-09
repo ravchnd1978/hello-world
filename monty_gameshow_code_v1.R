@@ -37,4 +37,5 @@ func_monty_python_single_run<-function()
 }
 
 #if the user switched a 1000 times, how many times does he win?
-replicate(1000,func_monty_python_single_run<-function())
+results <- replicate(1000,func_monty_python_single_run())
+table(results)
