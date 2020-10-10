@@ -39,3 +39,27 @@ func_monty_python_single_run<-function()
 #if the user switched a 1000 times, how many times does he win?
 results <- replicate(1000,func_monty_python_single_run())
 table(results)
+# results
+# LOSE  WIN 
+#  339  661  ==> Winning.pct = 661/(661+339)
+
+winning.pct.on.switching<-sum(results=="WIN")/length(results)
+print(winning.pct.on.switching)
+
+#remove(results)
+
+#Repeat the above for a number of different values of trials
+n <- 1:16
+runs <- 2^n
+runs
+#2    4    8   16   32   64  128  256  512 1024
+
+df <- data.frame(runs=runs,probs=rep(0.00001,length(n)))
+df
+
+library(purrr)
+result.winning.probs <- map(runs,function(x) {sum(replicate(x,func_monty_python_single_run())=="WIN")/x})
+result.winning.probs
+
+df$probs <- as.numeric(result.winning.probs)
+df
